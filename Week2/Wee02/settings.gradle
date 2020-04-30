@@ -1,0 +1,2 @@
+rootProject.name='Wee02'
+include ':app'
