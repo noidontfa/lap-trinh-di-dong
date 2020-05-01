@@ -1,113 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0001FC"
-    android:orientation="vertical"
     tools:context=".ConnexionActivity">
 
-
-
     <TextView
+        android:id="@+id/connexion_txt_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Connexion"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="80dp"
+        android:gravity="center"
         android:textColor="#FFFFFF"
-        android:textSize="50dp"
-        android:textStyle="bold"></TextView>
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_marginTop="67dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_create_account"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:text="Create an account"
         android:background="#FFFFFF"
+        android:layout_height="53dp"
+        android:layout_marginHorizontal="40dp"
+        android:onClick="create"
+        android:text="Create an acount"
         android:textColor="#0001FC"
-        android:textSize="25dp"
         android:textAllCaps="false"
-        ></Button>
+        android:textSize="18sp"
+        android:paddingLeft="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_google"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
-        android:id="@+id/button_connect_google"
+        android:id="@+id/button_google"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:text="Connect with Google"
+        android:layout_height="53dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="40dp"
         android:background="#FFFFFF"
-        android:textColor="#0A1034"
-        android:textSize="25dp"
-        android:textAllCaps="false"
         android:drawableLeft="@drawable/ic_brands_and_logotypes"
-        android:padding="15dp"
-        ></Button>
+        android:paddingLeft="30dp"
+        android:text="Connect with Google"
+        android:textAllCaps="false"
+        android:textColor="#555555"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_facebook"
+        app:layout_constraintTop_toBottomOf="@+id/button_create_account" />
 
     <Button
-        android:id="@+id/button_connect_fb"
+        android:id="@+id/button_facebook"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:text="Connect with Facebook"
+        android:layout_height="53dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="33dp"
         android:background="#415A93"
-        android:textColor="#FFFFFF"
-        android:textSize="25dp"
-        android:textAllCaps="false"
         android:drawableLeft="@drawable/ic_facebook"
-        android:padding="15dp"
-        ></Button>
+        android:paddingLeft="30dp"
+        android:text="Connect with Facebook"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_google" />
 
+    <TextView
+        android:id="@+id/text_login_link"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="55dp"
+        android:background="@null"
+        android:onClick="login"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textColor="#FBDF00"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/text_view_already_have_account"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_facebook" />
 
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/text_view_already_have_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="55dp"
+        android:background="@null"
+        android:text="Already have an acount?"
+        android:textAllCaps="false"
+        android:textColor="#FBDF00"
+        android:textSize="18sp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/text_login_link"
+        app:layout_constraintTop_toBottomOf="@+id/button_facebook" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#0001FC"
-            android:text="Already have an account?"
-            android:textColor="#FBDF00"
-            android:layout_marginLeft="30dp"
-            android:textSize="18sp"
-
-            ></TextView>
-        <TextView
-            android:id="@+id/text_login_link"
-            android:autoLink="all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Login"
-            android:textStyle="bold"
-            android:textColor="#FBDF00"
-            android:textSize="18sp"
-            android:clickable="true"
-            ></TextView>
-    </LinearLayout>
     <Button
         android:id="@+id/button_skip"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:text="Skip for now"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
         android:background="#0001FC"
-        android:textColor="#FFFFFF"
-        android:textSize="25dp"
+        android:text="Skip for now"
         android:textAllCaps="false"
-        ></Button>
-</LinearLayout>
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_already_have_account" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
