@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">Wee02</string>
-    <string name="buttonStart_name">Let\'s start</string>
-    <string name="buttonSkip_name">Skip for now</string>
-    <string name="labelMain_name">LATECH</string>
-    <string name="labelDescrip">T"  "E"  "C" "H"      "M"  "A"  "R"  "K"  "E"  "T</string>
-    <string name="imgDescrip">Logo</string>
-</resources>
