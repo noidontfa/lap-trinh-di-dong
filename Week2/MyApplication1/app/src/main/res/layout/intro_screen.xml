@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="375dp"
-    android:layout_height="812dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#0001FC"
     tools:context=".MainActivity">
 
@@ -11,7 +11,7 @@
         android:id="@+id/labelMain"
         android:layout_width="177dp"
         android:layout_height="47dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="64dp"
         android:fontFamily="@font/ptmono"
         android:text="@string/labelMain_name"
         android:textAlignment="center"
@@ -19,6 +19,36 @@
         android:textSize="42sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="344dp"
+        android:layout_height="374dp"
+        android:layout_marginTop="104dp"
+        android:contentDescription="@string/imgDescrip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/imageview" />
+
+    <Button
+        android:id="@+id/buttonStart"
+        android:layout_width="311dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="468dp"
+        android:background="@drawable/button"
+        android:fontFamily="@font/sfpro"
+        android:lineHeight="21dp"
+        android:text="@string/buttonStart_name"
+        android:textColor="#0001FC"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,64 +57,37 @@
         android:layout_width="148dp"
         android:layout_height="14dp"
         android:fontFamily="@font/sfpro"
+        android:lineHeight="14dp"
         android:text="@string/labelDescrip"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
-        android:textStyle="normal"
         android:textStyle="bold"
-        android:lineHeight="14dp"
         app:layout_constraintEnd_toEndOf="@+id/labelMain"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="@+id/labelMain"
         app:layout_constraintTop_toBottomOf="@+id/labelMain" />
-
-    <Button
-        android:id="@+id/buttonStart"
-        android:layout_width="311dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="566dp"
-        android:layout_marginBottom="44dp"
-        android:background="@drawable/button"
-        android:fontFamily="@font/sfpro"
-        android:text="@string/buttonStart_name"
-        android:textColor="#0001FC"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:lineHeight="21dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonSkip"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="99dp"
+        android:layout_marginBottom="60dp"
+        android:fontFamily="@font/sfpro"
+        android:lineHeight="21dp"
         android:maxLines="1"
         android:minWidth="0dp"
         android:minHeight="0dp"
-        android:fontFamily="@font/sfpro"
         android:text="@string/buttonSkip_name"
-        android:textStyle="normal"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:lineHeight="21dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="344dp"
-        android:layout_height="374dp"
-        android:layout_marginTop="200dp"
-        android:contentDescription="@string/imgDescrip"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.474"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/imageview" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonStart"
+        app:layout_constraintVertical_bias="1.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

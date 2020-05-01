@@ -72,7 +72,8 @@
     <TextView
         android:id="@+id/text_login_link"
         android:layout_width="wrap_content"
-        android:layout_height="21dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="55dp"
         android:background="@null"
@@ -100,7 +101,7 @@
         app:layout_constraintRight_toLeftOf="@+id/text_login_link"
         app:layout_constraintTop_toBottomOf="@+id/button_facebook" />
 
-    <Button
+    <TextView
         android:id="@+id/button_skip"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
