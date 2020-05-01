@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">My Application1</string>
+    <string name="buttonStart_name">Let\'s start</string>
+    <string name="buttonSkip_name">Skip for now</string>
+    <string name="labelMain_name">LATECH</string>
+    <string name="labelDescrip">T"  "E"  "C" "H"      "M"  "A"  "R"  "K"  "E"  "T</string>
+    <string name="imgDescrip">Logo</string>ing>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="skip_for_no">Skip for now</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign-up</string>
+    <string name="skip_for_now">Skip for now</string>
+    <string name="validate">Validate</string>
+    <string name="connexion">Connexion</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="connect_with_google">Connect with Google</string>
+    <string name="already_have_an_account_login">Already have an account ? Login</string>
+    <string name="connect_with_facebook">Connect with Facebook</string>
+    <string name="todo">TODO</string>
+    <string name="full_name">Full name</string>
+    <string name="tech_market">TECH MARKET</string>
+    <string name="latech">LATECH</string>
+    <string name="let_s_start">Let\'s start</string>
 </resources>
