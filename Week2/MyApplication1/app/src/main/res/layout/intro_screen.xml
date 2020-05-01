@@ -82,7 +82,7 @@
         android:text="@string/buttonSkip_name"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        android:textStyle="bold"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.474"
