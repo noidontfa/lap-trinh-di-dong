@@ -161,10 +161,11 @@
                             android:layout_height="wrap_content"
                             android:text="Movie description"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/colorPrimary" />
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tvJob"
+                            android:id="@+id/tvDescription"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/spacing_middle"
