@@ -29,7 +29,15 @@ class MovieAdapter(val ctx : Context, val movies:MovieModel.Result) : RecyclerVi
             .into(holder.movie_avatar)
         holder.movie_name.text = movie.title
         holder.movie_desc.text = movie.overview
+        holder.itemView.setOnClickListener{
+            listener?.onClickListener(movie)
+        }
+    }
 
+    var listener: MovieListener? = null
+
+    interface MovieListener{
+        fun onClickListener(movie: MovieModel.Content)
     }
 
     class MovieVH(itemView: View) : RecyclerView.ViewHolder(itemView){
