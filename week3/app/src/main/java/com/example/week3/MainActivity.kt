@@ -1,12 +1,11 @@
 package com.example.week3
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,16 +16,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(my_toolbar)
+        val adapter_Grid = MovieAdapter(ctx = this, movies = MovieModel.parseToObject() )
+        val Count: Int = 3
+        val layoutManager_Grid = GridLayoutManager(this, Count)
+
         val adapter = MovieAdapter(ctx = this, movies = MovieModel.parseToObject() )
         val layoutManager = LinearLayoutManager(this)
         rv.layoutManager = layoutManager
         rv.adapter = adapter
-        adapter.listener = object: MovieAdapter.MovieListener{
-            override fun onClickListener(movie: MovieModel.Content) {
-                //Toast.makeText(this@MainActivity, movie.title, Toast.LENGTH_SHORT).show()
-                startDetailScreen(movie)
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -43,14 +40,6 @@ class MainActivity : AppCompatActivity() {
             R.id.button_list ->Toast.makeText(applicationContext, "list view",Toast.LENGTH_SHORT).show()
         }
         return false
-    }
-
-    private fun startDetailScreen(movie: MovieModel.Content) {
-        val intent: Intent = Intent(this@MainActivity, DetailActivity::class.java)
-        intent.putExtra(MOVIE_TITLE_KEY, movie.title)
-        intent.putExtra(MOVIE_DESCRIPTION_KEY, movie.overview)
-        intent.putExtra(MOVIE_IMAGE_POSTER_KEY, movie.backdrop_path)
-        startActivity(intent)
     }
 
 }
