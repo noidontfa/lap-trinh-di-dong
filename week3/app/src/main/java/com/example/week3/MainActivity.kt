@@ -1,5 +1,6 @@
 package com.example.week3
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -16,14 +17,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(my_toolbar)
-        val adapter_Grid = MovieAdapter(ctx = this, movies = MovieModel.parseToObject() )
-        val Count: Int = 3
-        val layoutManager_Grid = GridLayoutManager(this, Count)
 
-        val adapter = MovieAdapter(ctx = this, movies = MovieModel.parseToObject() )
-        val layoutManager = LinearLayoutManager(this)
-        rv.layoutManager = layoutManager
+        val adapter = MovieAdapter(ctx = this, movies = MovieModel.parseToObject() , type = 0)
+        rv.layoutManager = LinearLayoutManager(this)
         rv.adapter = adapter
+        adapter.listener = object: MovieAdapter.MovieListener{
+            override fun onClickListener(movie: MovieModel.Content) {
+                startDetailScreen(movie)
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -36,10 +38,38 @@ class MainActivity : AppCompatActivity() {
         var itemview = item.itemId
         when(itemview)
         {
-            R.id.button_grid ->Toast.makeText(applicationContext, "grid view",Toast.LENGTH_SHORT).show()
-            R.id.button_list ->Toast.makeText(applicationContext, "list view",Toast.LENGTH_SHORT).show()
+            R.id.button_grid -> {
+                val Count: Int = 3
+                val adapter = MovieAdapter(ctx = this, movies = MovieModel.parseToObject() , type = 1)
+                rv.adapter = adapter
+                rv.layoutManager = GridLayoutManager(this, Count)
+                adapter.listener = object: MovieAdapter.MovieListener{
+                    override fun onClickListener(movie: MovieModel.Content) {
+                        startDetailScreen(movie)
+                    }
+                }
+            }
+
+            R.id.button_list -> {
+                val adapter = MovieAdapter(ctx = this, movies = MovieModel.parseToObject() , type = 0)
+                rv.adapter = adapter
+                rv.layoutManager = LinearLayoutManager(this)
+                adapter.listener = object: MovieAdapter.MovieListener{
+                    override fun onClickListener(movie: MovieModel.Content) {
+                        startDetailScreen(movie)
+                    }
+                }
+            }
         }
         return false
+    }
+
+    private fun startDetailScreen(movie: MovieModel.Content) {
+        val intent: Intent = Intent(this@MainActivity, DetailActivity::class.java)
+        intent.putExtra(MOVIE_TITLE_KEY, movie.title)
+        intent.putExtra(MOVIE_DESCRIPTION_KEY, movie.overview)
+        intent.putExtra(MOVIE_IMAGE_POSTER_KEY, movie.backdrop_path)
+        startActivity(intent)
     }
 
 }

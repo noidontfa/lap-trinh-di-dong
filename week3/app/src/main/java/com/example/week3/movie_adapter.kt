@@ -9,11 +9,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class MovieAdapter(val ctx : Context, val movies:MovieModel.Result) : RecyclerView.Adapter<MovieAdapter.MovieVH>(){
+class MovieAdapter(val ctx : Context, val movies:MovieModel.Result, val type : Int) : RecyclerView.Adapter<MovieAdapter.MovieVH>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieVH {
-        val view_Grid = LayoutInflater.from(ctx).inflate(R.layout.gridview, parent,false)
-        val view = LayoutInflater.from(ctx).inflate(R.layout.item_movie, parent,false)
+        var view = LayoutInflater.from(ctx).inflate(R.layout.item_movie, parent,false)
+        if (type == 1) {
+             view = LayoutInflater.from(ctx).inflate(R.layout.gridview, parent,false)
+        }
+
         return MovieVH(view)
     }
 
@@ -23,11 +26,25 @@ class MovieAdapter(val ctx : Context, val movies:MovieModel.Result) : RecyclerVi
 
     override fun onBindViewHolder(holder: MovieVH, position: Int) {
         val movie = movies.results[position]
-        Glide.with(ctx)
-            .load("https://image.tmdb.org/t/p/w500/"+movie.poster_path)
-            .into(holder.movie_avatar)
-        holder.movie_name.text = movie.title
-        holder.movie_desc.text = movie.overview
+        if(type == 1) {
+            Glide.with(ctx)
+                .load("https://image.tmdb.org/t/p/w500/"+movie.poster_path)
+                .into(holder.movie_avatar)
+            holder.movie_name.text = movie.title
+        } else {
+            Glide.with(ctx)
+                .load("https://image.tmdb.org/t/p/w500/"+movie.poster_path)
+                .into(holder.movie_avatar)
+            holder.movie_name.text = movie.title
+            holder.movie_desc.text = movie.overview
+        }
+        holder.itemView.setOnClickListener{
+            listener?.onClickListener(movie)
+        }
+    }
+    var listener: MovieListener? = null
+    interface MovieListener{
+        fun onClickListener(movie: MovieModel.Content)
     }
 
     class MovieVH(itemView: View) : RecyclerView.ViewHolder(itemView){
