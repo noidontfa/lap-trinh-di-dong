@@ -2,6 +2,10 @@ package com.example.week3
 
 import com.google.gson.Gson
 
+const val MOVIE_TITLE_KEY = "MOVIE_TITLE_KEY"
+const val MOVIE_DESCRIPTION_KEY = "MOVIE_DESCRIPTION_KEY"
+const val MOVIE_IMAGE_POSTER_KEY = "MOVIE_IMAGE_POSTER_KEY"
+
 class MovieModel {
 
     data class Result( val results : ArrayList<Content>,
