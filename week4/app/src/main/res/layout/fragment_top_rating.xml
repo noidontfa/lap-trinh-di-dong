@@ -13,12 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
+        app:titleTextColor="#ffff"
         app:title="Top Rating">
 
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        tools:listitem="@layout/item_movie"
+
         android:id="@+id/rvTopRatingFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

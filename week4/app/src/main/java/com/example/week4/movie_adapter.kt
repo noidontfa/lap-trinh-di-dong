@@ -1,5 +1,6 @@
 package com.example.week4
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class MovieAdapter(val ctx: MainActivity, val movies:MovieModel.Result, val type: Int) : RecyclerView.Adapter<MovieAdapter.MovieVH>(){
+class MovieAdapter(val ctx: Context, val movies:MovieModel.Result, val type: Int) : RecyclerView.Adapter<MovieAdapter.MovieVH>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieVH {
         var view = LayoutInflater.from(ctx).inflate(R.layout.item_movie, parent,false)

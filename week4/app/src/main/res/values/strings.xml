@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">week3</string>
 
+    <string name="favorites">My Favorite</string>
+    <string name="rating">Top Rating</string>
+    <string name="playing">Now Playing</string>
 
 </resources>
