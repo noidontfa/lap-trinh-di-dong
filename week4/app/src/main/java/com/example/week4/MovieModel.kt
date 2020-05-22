@@ -33,8 +33,11 @@ class MovieModel {
                       val minimum : String)
 
     companion object {
-        fun parseToObject() : Result {
-            return Gson().fromJson(DataCenter.getMovieJsonString(),Result::class.java)
+        fun getTopRateMovieObject(): Result {
+            return Gson().fromJson(DataCenter.getTopRateMovieJson(),Result::class.java)
+        }
+         fun getNowPlayingMovieObject(): Result {
+            return Gson().fromJson(DataCenter.getNowPlayingMovieJson(),Result::class.java)
         }
     }
 
