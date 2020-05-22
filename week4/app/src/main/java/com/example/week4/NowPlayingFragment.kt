@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_now_playing.*
 
@@ -14,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_now_playing.*
 /**
  * A simple [Fragment] subclass.
  */
-class NowPlayingFragment : Fragment() {
+class NowPlayingFragment(private val gridLayout : Boolean) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +32,17 @@ class NowPlayingFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
-        val adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getNowPlayingMovieObject(), type = 0)
-        rvNowPlayingFragment.layoutManager = LinearLayoutManager(activity)
+        val adapter : MovieAdapter
+        if(gridLayout) {
+            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getNowPlayingMovieObject(), type = 1)
+            rvNowPlayingFragment.layoutManager = GridLayoutManager(activity,3)
+        } else {
+            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getNowPlayingMovieObject(), type = 0)
+            rvNowPlayingFragment.layoutManager = LinearLayoutManager(activity)
+
+        }
         rvNowPlayingFragment.adapter = adapter
         adapter.listener = object: MovieAdapter.MovieListener{
             override fun onClickListener(movie: MovieModel.Content) {

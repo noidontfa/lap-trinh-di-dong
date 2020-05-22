@@ -4,6 +4,7 @@ package com.example.week4
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.FragmentTransaction
@@ -29,10 +30,10 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigation : BottomNavigationView = findViewById(R.id.navigationView)
 
-        nowPlayingFragment = NowPlayingFragment()
+        nowPlayingFragment = NowPlayingFragment(false)
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.frame_layout, nowPlayingFragment)
+            .replace(R.id.frame_layout, nowPlayingFragment,"NOW_PLAYING")
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
 
@@ -42,20 +43,20 @@ class MainActivity : AppCompatActivity() {
                 // now create three fragments
                 R.id.navigationPlaying -> {
 
-                    nowPlayingFragment = NowPlayingFragment()
+                    nowPlayingFragment = NowPlayingFragment(false)
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.frame_layout, nowPlayingFragment)
+                        .replace(R.id.frame_layout, nowPlayingFragment,"NOW_PLAYING")
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
 
                 R.id.navigationRating -> {
 
-                    topRatingFragment = TopRatingFragment()
+                    topRatingFragment = TopRatingFragment(false)
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.frame_layout, topRatingFragment)
+                        .replace(R.id.frame_layout, topRatingFragment, "TOP_RATING")
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
@@ -97,26 +98,44 @@ class MainActivity : AppCompatActivity() {
         when(itemview)
         {
             R.id.button_grid -> {
-//                val Count: Int = 3
-//                val adapter = MovieAdapter(ctx = this, movies = MovieModel.parseToObject() , type = 1)
-//                rv.adapter = adapter
-//                rv.layoutManager = GridLayoutManager(this, Count)
-
-//                adapter.listener = object: MovieAdapter.MovieListener{
-//                    override fun onClickListener(movie: MovieModel.Content) {
-//                        startDetailScreen(movie)
-//                    }
-//                }
+               val nowPlaying = supportFragmentManager.findFragmentByTag("NOW_PLAYING")
+               if (nowPlaying != null && nowPlaying.isVisible) {
+                   nowPlayingFragment = NowPlayingFragment(true)
+                   supportFragmentManager
+                       .beginTransaction()
+                       .replace(R.id.frame_layout, nowPlayingFragment,"NOW_PLAYING")
+                       .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                       .commit()
+               }
+                val topRating = supportFragmentManager.findFragmentByTag("TOP_RATING")
+                if (topRating != null && topRating.isVisible) {
+                    topRatingFragment = TopRatingFragment(true)
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, topRatingFragment,"TOP_RATING")
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
             }
 
             R.id.button_list -> {
-                val adapter = MovieAdapter(ctx = this, movies = MovieModel.getTopRateMovieObject() , type = 0)
-//                rv.adapter = adapter
-//                rv.layoutManager = LinearLayoutManager(this)
-                adapter.listener = object: MovieAdapter.MovieListener{
-                    override fun onClickListener(movie: MovieModel.Content) {
-                        startDetailScreen(movie)
-                    }
+                val myFragment = supportFragmentManager.findFragmentByTag("NOW_PLAYING")
+                if (myFragment != null && myFragment.isVisible) {
+                    nowPlayingFragment = NowPlayingFragment(false)
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, nowPlayingFragment,"NOW_PLAYING")
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
+                val topRating = supportFragmentManager.findFragmentByTag("TOP_RATING")
+                if (topRating != null && topRating.isVisible) {
+                    topRatingFragment = TopRatingFragment(false)
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, topRatingFragment,"TOP_RATING")
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
                 }
             }
         }

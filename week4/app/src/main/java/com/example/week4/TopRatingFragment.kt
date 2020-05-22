@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_top_rating.*
 /**
  * A simple [Fragment] subclass.
  */
-class TopRatingFragment : Fragment() {
+class TopRatingFragment(private val gridview : Boolean) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +29,14 @@ class TopRatingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject(), type = 0)
-        rvTopRatingFragment.layoutManager = LinearLayoutManager(activity)
+        val adapter : MovieAdapter
+        if(gridview) {
+            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject(), type = 1)
+            rvTopRatingFragment.layoutManager = GridLayoutManager(activity,3)
+        } else {
+            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject(), type = 0)
+            rvTopRatingFragment.layoutManager = LinearLayoutManager(activity)
+        }
         rvTopRatingFragment.adapter = adapter
         adapter.listener = object: MovieAdapter.MovieListener{
             override fun onClickListener(movie: MovieModel.Content) {
