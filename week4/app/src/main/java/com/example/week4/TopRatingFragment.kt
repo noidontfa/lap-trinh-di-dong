@@ -24,7 +24,12 @@ class TopRatingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val adapter = MovieAdapter(ctx = this as Context, movies = MovieModel.parseToObject() , type = 0)
+        return inflater.inflate(R.layout.fragment_top_rating, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.parseToObject(), type = 0)
         rvTopRatingFragment.layoutManager = LinearLayoutManager(activity)
         rvTopRatingFragment.adapter = adapter
         adapter.listener = object: MovieAdapter.MovieListener{
@@ -32,9 +37,7 @@ class TopRatingFragment : Fragment() {
                 startDetailScreen(movie)
             }
         }
-        return inflater.inflate(R.layout.fragment_top_rating, container, false)
     }
-
 
 
 
@@ -45,7 +48,7 @@ class TopRatingFragment : Fragment() {
         {
             R.id.button_grid -> {
                 val Count: Int = 3
-                val adapter = MovieAdapter(ctx = this as Context, movies = MovieModel.parseToObject() , type = 1)
+                val adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.parseToObject() , type = 1)
                 rvTopRatingFragment.adapter = adapter
                 rvTopRatingFragment.layoutManager = GridLayoutManager(activity, Count)
                 adapter.listener = object: MovieAdapter.MovieListener{
@@ -56,7 +59,7 @@ class TopRatingFragment : Fragment() {
             }
 
             R.id.button_list -> {
-                val adapter = MovieAdapter(ctx = this as Context, movies = MovieModel.parseToObject() , type = 0)
+                val adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.parseToObject() , type = 0)
                 rvTopRatingFragment.adapter = adapter
                 rvTopRatingFragment.layoutManager = LinearLayoutManager(activity)
                 adapter.listener = object: MovieAdapter.MovieListener{

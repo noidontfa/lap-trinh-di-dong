@@ -1,15 +1,21 @@
 package com.example.week4
 
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_top_rating.*
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var topRatingFragment: TopRatingFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,12 +23,24 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(my_toolbar)
 
-        if(supportFragmentManager.backStackEntryCount == 0){
-            val frag_lv = FragmentListView()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, frag_lv)
-                .commit()
-        }
+
+
+//        val bottomNavigation : BottomNavigationView = findViewById(R.id.navigationView)
+
+        topRatingFragment = TopRatingFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.frame_layout, topRatingFragment)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .commit()
+
+
+//        if(supportFragmentManager.backStackEntryCount == 0){
+//            val frag_lv = FragmentListView()
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, frag_lv)
+//                .commit()
+//        }
 //        adapter.listener = object: MovieAdapter.MovieListener{
 //            override fun onClickListener(movie: MovieModel.Content) {
 //                startDetailScreen(movie)

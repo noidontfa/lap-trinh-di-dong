@@ -16,13 +16,19 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="match_parent"
-        android:layout_height="550dp"
-        tools:layout_editor_absoluteX="1dp">
-    </androidx.recyclerview.widget.RecyclerView>
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rv"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="550dp"-->
+<!--        tools:layout_editor_absoluteX="1dp">-->
+<!--    </androidx.recyclerview.widget.RecyclerView>-->
 
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="550dp">
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigationView"
@@ -33,6 +39,6 @@
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="#ffffff"
         app:itemTextColor="#ffffff"
-        app:menu="@menu/bottom_navigation"/>
+        app:menu="@menu/bottom_navigation" />
 
 </LinearLayout>

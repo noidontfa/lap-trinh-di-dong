@@ -33,14 +33,14 @@ class FragmentListView : BaseFragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = MovieAdapter(ctx =activity as Context, movies = MovieModel.parseToObject() , type = 0)
+        val adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.parseToObject() , type = 0)
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(activity)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        retainInstance = true
     }
 
 
