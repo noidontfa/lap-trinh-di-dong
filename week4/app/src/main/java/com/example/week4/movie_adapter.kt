@@ -1,5 +1,6 @@
 package com.example.week4
 
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +42,19 @@ class MovieAdapter(val ctx : Context, val movies:MovieModel.Result, val type : I
         holder.itemView.setOnClickListener{
             listener?.onClickListener(movie)
         }
+        holder.movie_favorite.setOnClickListener() {
+            AlertDialog.Builder(ctx)
+                .setTitle("Favorite")
+                .setMessage("Do you want to add this movie to Favorite")
+                .setPositiveButton("OK") { dialog, _ ->
+                    holder.movie_favorite.setImageResource(R.drawable.ic_favorite_black_24dp)
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancel"){ dialog, _ ->
+                    holder.movie_favorite.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                    dialog.dismiss()
+                }.create().show()
+        }
     }
     var listener: MovieListener? = null
     interface MovieListener{
@@ -51,5 +65,6 @@ class MovieAdapter(val ctx : Context, val movies:MovieModel.Result, val type : I
         val movie_avatar = itemView.findViewById<ImageView>(R.id.imageView2)
         val movie_name = itemView.findViewById<TextView>(R.id.text_view_title)
         val movie_desc = itemView.findViewById<TextView>(R.id.text_view_overview)
+        val movie_favorite = itemView.findViewById<ImageView>(R.id.favorite_icon)
     }
 }
