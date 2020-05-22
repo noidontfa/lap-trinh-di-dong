@@ -36,6 +36,13 @@ class FragmentListView : BaseFragment() {
         val adapter = MovieAdapter(ctx =activity as Context, movies = MovieModel.parseToObject() , type = 0)
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(activity)
+
+
+        adapter.listener = object: MovieAdapter.MovieListener{
+            override fun onClickListener(movie: MovieModel.Content) {
+
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
