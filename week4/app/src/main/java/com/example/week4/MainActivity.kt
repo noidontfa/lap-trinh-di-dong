@@ -16,6 +16,8 @@ import kotlinx.android.synthetic.main.fragment_top_rating.*
 class MainActivity : AppCompatActivity() {
 
     lateinit var topRatingFragment: TopRatingFragment
+    lateinit var nowPlayingFragment: NowPlayingFragment
+//    lateinit var myFavoriteFragment: MyFavoriteFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,15 +27,51 @@ class MainActivity : AppCompatActivity() {
 
 
 
-//        val bottomNavigation : BottomNavigationView = findViewById(R.id.navigationView)
+        val bottomNavigation : BottomNavigationView = findViewById(R.id.navigationView)
 
-        topRatingFragment = TopRatingFragment()
+        nowPlayingFragment = NowPlayingFragment()
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.frame_layout, topRatingFragment)
+            .replace(R.id.frame_layout, nowPlayingFragment)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
 
+
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            when(item.itemId) {
+                // now create three fragments
+                R.id.navigationPlaying -> {
+
+                    nowPlayingFragment = NowPlayingFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, nowPlayingFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
+
+                R.id.navigationRating -> {
+
+                    topRatingFragment = TopRatingFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, topRatingFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
+
+//                R.id.navigationFavorite -> {
+//
+//                    myFavoriteFragment = MyFavoriteFragment()
+//                    supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.frame_layout, myFavoriteFragment)
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .commit()
+//                }
+            }
+            true
+        }
 
 //        if(supportFragmentManager.backStackEntryCount == 0){
 //            val frag_lv = FragmentListView()
@@ -72,7 +110,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.button_list -> {
-                val adapter = MovieAdapter(ctx = this, movies = MovieModel.parseToObject() , type = 0)
+                val adapter = MovieAdapter(ctx = this, movies = MovieModel.getTopRateMovieObject() , type = 0)
 //                rv.adapter = adapter
 //                rv.layoutManager = LinearLayoutManager(this)
                 adapter.listener = object: MovieAdapter.MovieListener{
