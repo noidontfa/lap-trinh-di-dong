@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_top_rating.*
 /**
  * A simple [Fragment] subclass.
  */
-class TopRatingFragment(private val gridview : Boolean) : Fragment() {
+class TopRatingFragment(private val gridview : Boolean, var db : AppDatabase) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +31,10 @@ class TopRatingFragment(private val gridview : Boolean) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val adapter : MovieAdapter
         if(gridview) {
-            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject(), type = 1)
+            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject(), type = 1, database = db)
             rvTopRatingFragment.layoutManager = GridLayoutManager(activity,3)
         } else {
-            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject(), type = 0)
+            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject(), type = 0, database = db)
             rvTopRatingFragment.layoutManager = LinearLayoutManager(activity)
         }
         rvTopRatingFragment.adapter = adapter
@@ -54,7 +54,7 @@ class TopRatingFragment(private val gridview : Boolean) : Fragment() {
         {
             R.id.button_grid -> {
                 val Count: Int = 3
-                val adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject() , type = 1)
+                val adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject() , type = 1, database = db)
                 rvTopRatingFragment.adapter = adapter
                 rvTopRatingFragment.layoutManager = GridLayoutManager(activity, Count)
                 adapter.listener = object: MovieAdapter.MovieListener{
@@ -65,7 +65,7 @@ class TopRatingFragment(private val gridview : Boolean) : Fragment() {
             }
 
             R.id.button_list -> {
-                val adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject() , type = 0)
+                val adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject() , type = 0, database = db)
                 rvTopRatingFragment.adapter = adapter
                 rvTopRatingFragment.layoutManager = LinearLayoutManager(activity)
                 adapter.listener = object: MovieAdapter.MovieListener{
