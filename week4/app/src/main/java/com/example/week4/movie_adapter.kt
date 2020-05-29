@@ -24,12 +24,12 @@ class MovieAdapter(val ctx: Context, val movies:MovieModel.Result, val type: Int
     }
 
     override fun getItemCount(): Int {
-        return movies.results.size
+        return movies.results!!.size
     }
 
     override fun onBindViewHolder(holder: MovieVH, position: Int) {
         var flag : Boolean = false
-        val movie = movies.results[position]
+        val movie = movies.results!![position]
         var favorite_movie = Movie()
         if(type == 1) {
             Glide.with(ctx)
@@ -54,9 +54,9 @@ class MovieAdapter(val ctx: Context, val movies:MovieModel.Result, val type: Int
                     .setMessage("Do you want to add this movie to Favorite")
                     .setPositiveButton("OK") { dialog, _ ->
                         holder.movie_favorite.setImageResource(R.drawable.ic_favorite_black_24dp)
-                        favorite_movie.name =movie.title
-                        favorite_movie.description = movie.overview
-                        favorite_movie.movie_poster_path = "https://image.tmdb.org/t/p/w500/" + movie.poster_path
+                        favorite_movie.name = movie.title.toString()
+                        favorite_movie.description = movie.overview.toString()
+                        favorite_movie.movie_poster_path = movie.poster_path.toString()
                         val fv_movie_DAO = database.movieDAO()
                         //database.movieDAO().insert(favorite_movie)
                         val id = fv_movie_DAO.insert(favorite_movie)

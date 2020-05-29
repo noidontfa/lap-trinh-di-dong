@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var topRatingFragment: TopRatingFragment
     lateinit var nowPlayingFragment: NowPlayingFragment
     lateinit var db : AppDatabase
-//    lateinit var myFavoriteFragment: MyFavoriteFragment
+    lateinit var favoriteFragment: FavoriteFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +53,13 @@ class MainActivity : AppCompatActivity() {
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit()
         } else if(getFragmentStatus(status) == R.id.navigationFavorite) {
-            // Processing...
+            favoriteFragment = FavoriteFragment(false,db)
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frame_layout, favoriteFragment, "FAVORITE")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit()
+
         } else {
             nowPlayingFragment = NowPlayingFragment(false, db)
             supportFragmentManager
@@ -91,15 +97,16 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
 
-//                R.id.navigationFavorite -> {
-//
-//                    myFavoriteFragment = MyFavoriteFragment()
-//                    supportFragmentManager
-//                        .beginTransaction()
-//                        .replace(R.id.frame_layout, myFavoriteFragment)
-//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//                        .commit()
-//                }
+                R.id.navigationFavorite -> {
+                    storeFragmentStatus(status, R.id.navigationFavorite)
+                    favoriteFragment = FavoriteFragment(false,db)
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, favoriteFragment, "FAVORITE")
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
+
             }
             true
         }
@@ -134,6 +141,15 @@ class MainActivity : AppCompatActivity() {
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
+                val favorite = supportFragmentManager.findFragmentByTag("FAVORITE")
+                if(favorite != null && favorite.isVisible) {
+                    favoriteFragment = FavoriteFragment(true,db)
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, favoriteFragment, "FAVORITE")
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
             }
 
             R.id.button_list -> {
@@ -155,6 +171,15 @@ class MainActivity : AppCompatActivity() {
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
+                val favorite = supportFragmentManager.findFragmentByTag("FAVORITE")
+                if(favorite != null && favorite.isVisible) {
+                    favoriteFragment = FavoriteFragment(false,db)
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, favoriteFragment, "FAVORITE")
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                }
             }
         }
         return false
@@ -173,7 +198,6 @@ class MainActivity : AppCompatActivity() {
         val editor = sharedPreferences.edit()
         editor.putInt(STATUS, idStatus)
         editor.apply();
-        Toast.makeText(this, "Status saved", Toast.LENGTH_SHORT).show()
     }
 
     private fun getFragmentStatus(STATUS: String): Int {
