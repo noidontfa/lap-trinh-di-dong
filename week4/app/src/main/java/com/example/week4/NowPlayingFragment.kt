@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_now_playing.*
 /**
  * A simple [Fragment] subclass.
  */
-class NowPlayingFragment(private val gridLayout : Boolean) : Fragment() {
+class NowPlayingFragment(private val gridLayout : Boolean, var db: AppDatabase) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +36,10 @@ class NowPlayingFragment(private val gridLayout : Boolean) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val adapter : MovieAdapter
         if(gridLayout) {
-            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getNowPlayingMovieObject(), type = 1)
+            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getNowPlayingMovieObject(), type = 1, database = db)
             rvNowPlayingFragment.layoutManager = GridLayoutManager(activity,3)
         } else {
-            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getNowPlayingMovieObject(), type = 0)
+            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getNowPlayingMovieObject(), type = 0, database = db)
             rvNowPlayingFragment.layoutManager = LinearLayoutManager(activity)
 
         }
