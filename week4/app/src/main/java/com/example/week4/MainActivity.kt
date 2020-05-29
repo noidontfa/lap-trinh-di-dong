@@ -16,16 +16,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_top_rating.*
+import androidx.room.Room
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var topRatingFragment: TopRatingFragment
     lateinit var nowPlayingFragment: NowPlayingFragment
+    lateinit var db : AppDatabase
 //    lateinit var myFavoriteFragment: MyFavoriteFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        db = AppDatabase.invoke(this)
 
         setSupportActionBar(my_toolbar)
 
@@ -36,14 +39,14 @@ class MainActivity : AppCompatActivity() {
 
 
         if(getFragmentStatus(status) == R.id.navigationPlaying) {
-            nowPlayingFragment = NowPlayingFragment(false)
+            nowPlayingFragment = NowPlayingFragment(false, db)
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.frame_layout, nowPlayingFragment,"NOW_PLAYING")
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit()
         } else if(getFragmentStatus(status) == R.id.navigationRating) {
-            topRatingFragment = TopRatingFragment(false)
+            topRatingFragment = TopRatingFragment(false, db)
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.frame_layout, topRatingFragment, "TOP_RATING")
@@ -52,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         } else if(getFragmentStatus(status) == R.id.navigationFavorite) {
             // Processing...
         } else {
-            nowPlayingFragment = NowPlayingFragment(false)
+            nowPlayingFragment = NowPlayingFragment(false, db)
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.frame_layout, nowPlayingFragment,"NOW_PLAYING")
@@ -69,7 +72,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigationPlaying -> {
                     storeFragmentStatus(status, R.id.navigationPlaying)
 
-                    nowPlayingFragment = NowPlayingFragment(false)
+                    nowPlayingFragment = NowPlayingFragment(false, db)
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.frame_layout, nowPlayingFragment,"NOW_PLAYING")
@@ -80,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigationRating -> {
                     storeFragmentStatus(status, R.id.navigationRating)
 
-                    topRatingFragment = TopRatingFragment(false)
+                    topRatingFragment = TopRatingFragment(false, db)
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.frame_layout, topRatingFragment, "TOP_RATING")
@@ -115,7 +118,7 @@ class MainActivity : AppCompatActivity() {
             R.id.button_grid -> {
                val nowPlaying = supportFragmentManager.findFragmentByTag("NOW_PLAYING")
                if (nowPlaying != null && nowPlaying.isVisible) {
-                   nowPlayingFragment = NowPlayingFragment(true)
+                   nowPlayingFragment = NowPlayingFragment(true, db)
                    supportFragmentManager
                        .beginTransaction()
                        .replace(R.id.frame_layout, nowPlayingFragment,"NOW_PLAYING")
@@ -124,7 +127,7 @@ class MainActivity : AppCompatActivity() {
                }
                 val topRating = supportFragmentManager.findFragmentByTag("TOP_RATING")
                 if (topRating != null && topRating.isVisible) {
-                    topRatingFragment = TopRatingFragment(true)
+                    topRatingFragment = TopRatingFragment(true, db)
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.frame_layout, topRatingFragment,"TOP_RATING")
@@ -136,7 +139,7 @@ class MainActivity : AppCompatActivity() {
             R.id.button_list -> {
                 val myFragment = supportFragmentManager.findFragmentByTag("NOW_PLAYING")
                 if (myFragment != null && myFragment.isVisible) {
-                    nowPlayingFragment = NowPlayingFragment(false)
+                    nowPlayingFragment = NowPlayingFragment(false, db)
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.frame_layout, nowPlayingFragment,"NOW_PLAYING")
@@ -145,7 +148,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 val topRating = supportFragmentManager.findFragmentByTag("TOP_RATING")
                 if (topRating != null && topRating.isVisible) {
-                    topRatingFragment = TopRatingFragment(false)
+                    topRatingFragment = TopRatingFragment(false, db)
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.frame_layout, topRatingFragment,"TOP_RATING")
