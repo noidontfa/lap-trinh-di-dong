@@ -9,9 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.bumptech.glide.Glide
 
-class MovieAdapter(val ctx: Context, val movies:MovieModel.Result, val type: Int) : RecyclerView.Adapter<MovieAdapter.MovieVH>(){
+class MovieAdapter(val ctx: Context, val movies:MovieModel.Result, val type: Int, var database: AppDatabase) : RecyclerView.Adapter<MovieAdapter.MovieVH>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieVH {
         var view = LayoutInflater.from(ctx).inflate(R.layout.item_movie, parent,false)
@@ -29,6 +30,7 @@ class MovieAdapter(val ctx: Context, val movies:MovieModel.Result, val type: Int
     override fun onBindViewHolder(holder: MovieVH, position: Int) {
         var flag : Boolean = false
         val movie = movies.results[position]
+        var favorite_movie = Movie()
         if(type == 1) {
             Glide.with(ctx)
                 .load("https://image.tmdb.org/t/p/w500/"+movie.poster_path)
@@ -52,6 +54,13 @@ class MovieAdapter(val ctx: Context, val movies:MovieModel.Result, val type: Int
                     .setMessage("Do you want to add this movie to Favorite")
                     .setPositiveButton("OK") { dialog, _ ->
                         holder.movie_favorite.setImageResource(R.drawable.ic_favorite_black_24dp)
+                        favorite_movie.name =movie.title
+                        favorite_movie.description = movie.overview
+                        favorite_movie.movie_poster_path = "https://image.tmdb.org/t/p/w500/" + movie.poster_path
+                        val fv_movie_DAO = database.movieDAO()
+                        //database.movieDAO().insert(favorite_movie)
+                        val id = fv_movie_DAO.insert(favorite_movie)
+                        favorite_movie.id = id.toInt()
                         dialog.dismiss()
                         flag = true;
                     }
@@ -62,6 +71,7 @@ class MovieAdapter(val ctx: Context, val movies:MovieModel.Result, val type: Int
             }
             else{
                 holder.movie_favorite.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                database.movieDAO().delete(favorite_movie)
                 flag = false
                 Toast.makeText(ctx, "Remove from Favorite", Toast.LENGTH_SHORT).show()
             }
