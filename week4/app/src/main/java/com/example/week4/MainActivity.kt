@@ -1,12 +1,15 @@
 package com.example.week4
 
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,19 +32,42 @@ class MainActivity : AppCompatActivity() {
 
 
         val bottomNavigation : BottomNavigationView = findViewById(R.id.navigationView)
-
-        nowPlayingFragment = NowPlayingFragment(false)
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.frame_layout, nowPlayingFragment,"NOW_PLAYING")
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .commit()
+        var status : String = "STATUS_CURRENT"
 
 
-        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+        if(getFragmentStatus(status) == R.id.navigationPlaying) {
+            nowPlayingFragment = NowPlayingFragment(false)
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frame_layout, nowPlayingFragment,"NOW_PLAYING")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit()
+        } else if(getFragmentStatus(status) == R.id.navigationRating) {
+            topRatingFragment = TopRatingFragment(false)
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frame_layout, topRatingFragment, "TOP_RATING")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit()
+        } else if(getFragmentStatus(status) == R.id.navigationFavorite) {
+            // Processing...
+        } else {
+            nowPlayingFragment = NowPlayingFragment(false)
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frame_layout, nowPlayingFragment,"NOW_PLAYING")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit()
+        }
+
+
+
+
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->  
             when(item.itemId) {
                 // now create three fragments
                 R.id.navigationPlaying -> {
+                    storeFragmentStatus(status, R.id.navigationPlaying)
 
                     nowPlayingFragment = NowPlayingFragment(false)
                     supportFragmentManager
@@ -52,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigationRating -> {
+                    storeFragmentStatus(status, R.id.navigationRating)
 
                     topRatingFragment = TopRatingFragment(false)
                     supportFragmentManager
@@ -73,18 +100,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-//        if(supportFragmentManager.backStackEntryCount == 0){
-//            val frag_lv = FragmentListView()
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.container, frag_lv)
-//                .commit()
-//        }
-//        adapter.listener = object: MovieAdapter.MovieListener{
-//            override fun onClickListener(movie: MovieModel.Content) {
-//                startDetailScreen(movie)
-//            }
-//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -150,4 +165,16 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun storeFragmentStatus(STATUS: String, idStatus: Int) {
+        val sharedPreferences = this.getSharedPreferences("STATUS_FRAGMENT", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt(STATUS, idStatus)
+        editor.apply();
+        Toast.makeText(this, "Status saved", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getFragmentStatus(STATUS: String): Int {
+        val sharedPreferences = this.getSharedPreferences("STATUS_FRAGMENT", Context.MODE_PRIVATE)
+        return sharedPreferences.getInt(STATUS, -1)
+    }
 }
