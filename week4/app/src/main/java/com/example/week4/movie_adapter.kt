@@ -12,24 +12,25 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.bumptech.glide.Glide
 
-class MovieAdapter(val ctx: Context, val movies:MovieModel.Result, val type: Int, var database: AppDatabase) : RecyclerView.Adapter<MovieAdapter.MovieVH>(){
+class MovieAdapter(val ctx: Context, val movies:VideoResponse, val type: Int, var database: AppDatabase) : RecyclerView.Adapter<MovieAdapter.MovieVH>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieVH {
         var view = LayoutInflater.from(ctx).inflate(R.layout.item_movie, parent,false)
         if (type == 1) {
-             view = LayoutInflater.from(ctx).inflate(R.layout.gridview, parent,false)
+            view = LayoutInflater.from(ctx).inflate(R.layout.gridview, parent,false)
         }
 
         return MovieVH(view)
     }
 
     override fun getItemCount(): Int {
-        return movies.results!!.size
+        return movies.result!!.size
+        //return movies.results!!.size
     }
 
     override fun onBindViewHolder(holder: MovieVH, position: Int) {
         var flag : Boolean = false
-        val movie = movies.results!![position]
+        val movie = movies.result!![position]
         var favorite_movie = Movie()
         if(type == 1) {
             Glide.with(ctx)
@@ -79,7 +80,7 @@ class MovieAdapter(val ctx: Context, val movies:MovieModel.Result, val type: Int
     }
     var listener: MovieListener? = null
     interface MovieListener{
-        fun onClickListener(movie: MovieModel.Content)
+        fun onClickListener(movie: Video)
     }
 
     class MovieVH(itemView: View) : RecyclerView.ViewHolder(itemView){

@@ -7,7 +7,4 @@ interface MovieAPI {
     @GET("movie/top_rated")
     fun getTopRateMovie(): Call<VideoResponse>
 
-    @GET("movie/now_playing")
-    fun getNowPlaying(): Call<VideoResponse>
-
 }

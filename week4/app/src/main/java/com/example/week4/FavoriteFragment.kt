@@ -41,29 +41,30 @@ class FavoriteFragment(private val gridLayout : Boolean, var db: AppDatabase) : 
         }
         rvNowPlayingFragment.adapter = adapter
         adapter.listener = object: MovieAdapter.MovieListener{
-            override fun onClickListener(movie: MovieModel.Content) {
+            override fun onClickListener(movie: Video) {
                 startDetailScreen(movie)
             }
         }
     }
 
-    private fun startDetailScreen(movie: MovieModel.Content) {
+    private fun startDetailScreen(movie: Video) {
         val intent: Intent = Intent(activity, DetailActivity::class.java)
         intent.putExtra(MOVIE_TITLE_KEY, movie.title)
         intent.putExtra(MOVIE_DESCRIPTION_KEY, movie.overview)
-        intent.putExtra(MOVIE_IMAGE_POSTER_KEY, movie.backdrop_path)
+        intent.putExtra(MOVIE_IMAGE_POSTER_KEY, movie.backdropPath)
         startActivity(intent)
     }
 
-    private fun parseMovieToMovieModel(movie: List<Movie>) : MovieModel.Result {
-       val m = MovieModel.Result();
+    private fun parseMovieToMovieModel(movie: List<Movie>) : VideoResponse {
+       val m = VideoResponse()
         movie.forEach { e ->
-            val content = MovieModel.Content()
+            val content = Video()
             content.id = e.id
             content.overview = e.description
             content.poster_path = e.movie_poster_path
             content.title = e.name
-            m.results?.add(content);
+            m.result?.add(content);
+
         }
         return m
     }
