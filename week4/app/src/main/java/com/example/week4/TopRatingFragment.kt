@@ -31,15 +31,17 @@ class TopRatingFragment(private val gridview : Boolean, var db : AppDatabase) : 
         super.onViewCreated(view, savedInstanceState)
         val adapter : MovieAdapter
         if(gridview) {
-            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject(), type = 1, database = db)
+            //adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject(), type = 1, database = db)
+            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getDataFromApi(), type = 1, database = db)
             rvTopRatingFragment.layoutManager = GridLayoutManager(activity,3)
         } else {
-            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject(), type = 0, database = db)
+            //adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject(), type = 0, database = db)
+            adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getDataFromApi(), type = 0, database = db)
             rvTopRatingFragment.layoutManager = LinearLayoutManager(activity)
         }
         rvTopRatingFragment.adapter = adapter
         adapter.listener = object: MovieAdapter.MovieListener{
-            override fun onClickListener(movie: MovieModel.Content) {
+            override fun onClickListener(movie: Video) {
                 startDetailScreen(movie)
             }
         }
@@ -54,22 +56,22 @@ class TopRatingFragment(private val gridview : Boolean, var db : AppDatabase) : 
         {
             R.id.button_grid -> {
                 val Count: Int = 3
-                val adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject() , type = 1, database = db)
+                val adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getDataFromApi(), type = 1, database = db)
                 rvTopRatingFragment.adapter = adapter
                 rvTopRatingFragment.layoutManager = GridLayoutManager(activity, Count)
                 adapter.listener = object: MovieAdapter.MovieListener{
-                    override fun onClickListener(movie: MovieModel.Content) {
+                    override fun onClickListener(movie: Video) {
                         startDetailScreen(movie)
                     }
                 }
             }
 
             R.id.button_list -> {
-                val adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getTopRateMovieObject() , type = 0, database = db)
+                val adapter = MovieAdapter(ctx = activity as Context, movies = MovieModel.getDataFromApi() , type = 0, database = db)
                 rvTopRatingFragment.adapter = adapter
                 rvTopRatingFragment.layoutManager = LinearLayoutManager(activity)
                 adapter.listener = object: MovieAdapter.MovieListener{
-                    override fun onClickListener(movie: MovieModel.Content) {
+                    override fun onClickListener(movie: Video) {
                         startDetailScreen(movie)
                     }
                 }
@@ -78,11 +80,11 @@ class TopRatingFragment(private val gridview : Boolean, var db : AppDatabase) : 
         return false
     }
 
-    private fun startDetailScreen(movie: MovieModel.Content) {
+    private fun startDetailScreen(movie: Video) {
         val intent: Intent = Intent(activity, DetailActivity::class.java)
         intent.putExtra(MOVIE_TITLE_KEY, movie.title)
         intent.putExtra(MOVIE_DESCRIPTION_KEY, movie.overview)
-        intent.putExtra(MOVIE_IMAGE_POSTER_KEY, movie.backdrop_path)
+        intent.putExtra(MOVIE_IMAGE_POSTER_KEY, movie.backdropPath)
         startActivity(intent)
     }
 }

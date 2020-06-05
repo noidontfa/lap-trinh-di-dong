@@ -6,17 +6,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_top_rating.*
 import androidx.room.Room
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,13 +22,18 @@ class MainActivity : AppCompatActivity() {
     lateinit var db : AppDatabase
     lateinit var favoriteFragment: FavoriteFragment
 
+    companion object{
+        val TAG = MainActivity::class.java.simpleName
+        const val URL = "https://api.themoviedb.org/3/"
+        const val API_KEY = "7519cb3f829ecd53bd9b7007076dbe23"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         db = AppDatabase.invoke(this)
 
         setSupportActionBar(my_toolbar)
-
 
 
         val bottomNavigation : BottomNavigationView = findViewById(R.id.navigationView)
@@ -185,11 +187,11 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
-    private fun startDetailScreen(movie: MovieModel.Content) {
+    private fun startDetailScreen(movie: Video) {
         val intent: Intent = Intent(this@MainActivity, DetailActivity::class.java)
         intent.putExtra(MOVIE_TITLE_KEY, movie.title)
         intent.putExtra(MOVIE_DESCRIPTION_KEY, movie.overview)
-        intent.putExtra(MOVIE_IMAGE_POSTER_KEY, movie.backdrop_path)
+        intent.putExtra(MOVIE_IMAGE_POSTER_KEY, movie.backdropPath)
         startActivity(intent)
     }
 
@@ -204,4 +206,23 @@ class MainActivity : AppCompatActivity() {
         val sharedPreferences = this.getSharedPreferences("STATUS_FRAGMENT", Context.MODE_PRIVATE)
         return sharedPreferences.getInt(STATUS, -1)
     }
+
+//    fun getDataFromApi(){
+//        MovieService.getInstance().getApi().getTopRateMovie().enqueue(object :
+//            Callback<VideoResponse> {
+//            override fun onFailure(call: Call<VideoResponse>?, t: Throwable?) {
+//                //todo something
+//            }
+//
+//            override fun onResponse(
+//                call: Call<VideoResponse>?,
+//                response: Response<VideoResponse>?
+//            ) {
+//                response?.let {
+//                    val resp:VideoResponse = it.body()
+//                }
+//            }
+//
+//        })
+//    }
 }
