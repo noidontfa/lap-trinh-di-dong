@@ -17,6 +17,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_top_rating.*
 import androidx.room.Room
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +27,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var nowPlayingFragment: NowPlayingFragment
     lateinit var db : AppDatabase
     lateinit var favoriteFragment: FavoriteFragment
+
+    companion object{
+        const val API_KEY = "7519cb3f829ecd53bd9b7007076dbe23"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -203,5 +210,24 @@ class MainActivity : AppCompatActivity() {
     private fun getFragmentStatus(STATUS: String): Int {
         val sharedPreferences = this.getSharedPreferences("STATUS_FRAGMENT", Context.MODE_PRIVATE)
         return sharedPreferences.getInt(STATUS, -1)
+    }
+
+    fun getDataFromApi(){
+        MovieService.getInstance().getApi().getNowPlaying().enqueue(object :
+            Callback<VideoResponse> {
+            override fun onFailure(call: Call<VideoResponse>?, t: Throwable?) {
+                //todo something
+            }
+
+            override fun onResponse(
+                call: Call<VideoResponse>?,
+                response: Response<VideoResponse>?
+            ) {
+                response?.let {
+                    val resp = it.body()
+                    resp.results
+                }
+            }
+        })
     }
 }

@@ -1,6 +1,9 @@
 package com.example.week4
 
 import com.google.gson.Gson
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 const val MOVIE_TITLE_KEY = "MOVIE_TITLE_KEY"
 const val MOVIE_DESCRIPTION_KEY = "MOVIE_DESCRIPTION_KEY"
@@ -46,9 +49,6 @@ class MovieModel {
          fun getNowPlayingMovieObject(): Result {
             return Gson().fromJson(DataCenter.getNowPlayingMovieJson(),Result::class.java)
         }
-
-
-
     }
 
 }
