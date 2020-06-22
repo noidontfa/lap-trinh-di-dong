@@ -2,25 +2,31 @@ package com.example.car_parking
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-
+import com.example.car_parking.models.MarkerModel
+import com.example.car_parking.models.RoomModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
-
+    val TAG = "MapsActivity"
     private lateinit var mMap: GoogleMap
-
+    private val database = Firebase.database
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
@@ -28,6 +34,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
     }
 
     /**
@@ -41,12 +48,31 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        onLoadMarkerFromDatabase(mMap)
+        mMap.setOnMarkerClickListener {marker ->
+            onLoadRoomFromDatabase(marker)
+            true
+        }
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(10.7629183,106.679983),17.0f))
+    }
 
-        // Add a marker in Sydney and move the camera
-        val khtn = LatLng(10.7629183,106.679983)
-        mMap.addMarker(MarkerOptions().position(khtn).title("Khtn")
-                .icon(bitmapDescriptorFromVector(this,R.drawable.test)))
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(khtn,17.0f))
+    private fun onLoadRoomFromDatabase(marker: Marker) {
+        val roomId = marker.tag
+        database.getReference("rooms").orderByChild("roomId").equalTo(roomId.toString())
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    Log.d(TAG,error.toString())
+                }
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for ( snap in snapshot.children) {
+                        val value = snap.getValue(RoomModel::class.java)
+                        Log.d(TAG,value.toString())
+                        Toast.makeText(applicationContext,value!!.name,Toast.LENGTH_SHORT).show()
+                        // xu ly man hinh car parking o day
+                    }
+                }
+
+            })
     }
 
     private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
@@ -57,4 +83,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             BitmapDescriptorFactory.fromBitmap(bitmap)
         }
     }
+
+    private fun onLoadMarkerFromDatabase(mMap : GoogleMap) {
+            val markerRef = database.getReference("marker")
+            markerRef.addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    Log.d(TAG,error.toString())
+                }
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (snap in snapshot.children) {
+                        val marker = snap.getValue(MarkerModel::class.java)
+                        val position = LatLng(marker!!.x,marker!!.y)
+                        val m = mMap.addMarker(MarkerOptions().position(position).title(marker.title)
+                            .icon(bitmapDescriptorFromVector(this@MapsActivity,R.drawable.test)))
+                        m.tag = marker.roomId
+                    }
+                }
+            })
+        }
+
 }
+
+
