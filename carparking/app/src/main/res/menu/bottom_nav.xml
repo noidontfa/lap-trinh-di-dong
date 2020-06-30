@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/locationParking"
+        android:icon="@drawable/parking_64"
+        android:title="Location Parking"/>
+
+    <item
+        android:id="@+id/Parking"
+        android:icon="@drawable/garage_80"
+        android:title="Parking"/>
+
+    <item
+        android:id="@+id/Account"
+        android:icon="@drawable/account_64"
+        android:title="Account"/>
+</menu>
