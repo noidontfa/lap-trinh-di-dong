@@ -41,7 +41,7 @@ import com.google.firebase.ktx.Firebase
 import java.util.*
 import kotlin.collections.ArrayList
 
-class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {
     val TAG = "MapsActivity"
     private lateinit var mMap: GoogleMap
     private val database = Firebase.database
@@ -230,10 +230,10 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
                 override fun onCancelled(error: DatabaseError) {
                     Log.d(TAG,error.toString())
                 }
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for ( snap in snapshot.children) {
-                        val value = snap.getValue(RoomModel::class.java)
-                        Log.d(TAG,value.toString())
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            for ( snap in snapshot.children) {
+                                val value = snap.getValue(RoomModel::class.java)
+                                Log.d(TAG,value.toString())
                         Toast.makeText(activity,value!!.name,Toast.LENGTH_SHORT).show()
                         // xu ly man hinh car parking o day
                     }
@@ -270,6 +270,8 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
     }
 
     override fun onMarkerClick(mMarker: Marker?): Boolean {
+        childFragmentManager.beginTransaction().add(R.id.bottom_sheet, PopupParking() as Fragment).commit()
+        mMap.setOnMapClickListener(this)
         val polyline1 = mMap.addPolyline(PolylineOptions()
             .clickable(true)
             .add(
@@ -280,6 +282,7 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
         return false
     }
 
+
     companion object {
         private const val DEFAULT_ZOOM = 17.0f
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
@@ -287,5 +290,13 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
         // Keys for storing activity state.
         private const val KEY_CAMERA_POSITION = "camera_position"
         private const val KEY_LOCATION = "location"
+    }
+
+    override fun onMapClick(p0: LatLng?) {
+        childFragmentManager.findFragmentById(R.id.bottom_sheet)?.let {
+            childFragmentManager?.beginTransaction().remove(
+                it
+            ).commit()
+        }
     }
 }
