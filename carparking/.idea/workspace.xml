@@ -11,23 +11,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7d34b58-068f-47cc-8915-a83367257a1e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/car_parking/Account.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/car_parking/LocationParking.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/car_parking/Parking.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/account_64.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/garage_80.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/parking_64.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_account.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_location_parking.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_parking.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/bottom_nav.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/bloodshot.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../week4/app/src/main/java/com/example/week4/MyApplication.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Seminar/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Seminar/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/car_parking/MapsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/car_parking/MapsActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/car_parking/Parking.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/car_parking/Parking.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_parking.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_parking.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week4/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../week4/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../week4/app/src/main/java/com/example/week4/MovieAPI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../week4/app/src/main/java/com/example/week4/MovieAPI.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week4/app/src/main/java/com/example/week4/TopRatingFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../week4/app/src/main/java/com/example/week4/TopRatingFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week4/app/src/main/res/layout/fragment_top_rating.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../week4/app/src/main/res/layout/fragment_top_rating.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week4/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../week4/build.gradle" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +31,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3_XL_API_29" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_28" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -44,15 +40,25 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <projects_view />
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="car-parking" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin File" />
         <option value="resourceFile" />
+        <option value="layoutResourceFile_vertical" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -64,9 +70,11 @@
   <component name="PropertiesComponent">
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_3_XL_API_29" />
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-06-26T09:23:54.374Z" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="ToolWindowStructure.ShowToolbar" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable-v24" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../week4" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RecentsManager">
@@ -74,6 +82,7 @@
       <recent name="com.example.car_parking" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Dien\carparking\app\src\main\res\drawable-v24" />
       <recent name="E:\HOCTAP\HocKy8\LapTrinhThietBiDiDong\lap-trinh-di-dong\carparking\app\src\main\res\drawable-v24" />
       <recent name="C:\Users\thinh\Desktop\New folder (3)\carparking\app" />
     </key>
@@ -149,6 +158,9 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="AUTOSCROLL_MODE" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
