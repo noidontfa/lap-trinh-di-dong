@@ -13,7 +13,6 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DH KHTN - DHQGTPHCM"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/colorPrimaryDark"
@@ -56,21 +55,18 @@
                 android:id="@+id/tv_addr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="227 Nguyen Van Cu, P.4, Q.5"
                 android:paddingTop="10dp" />
 
             <TextView
                 android:id="@+id/tv_hour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="6h40'-9h00'"
                 android:paddingTop="10dp" />
 
             <TextView
                 android:id="@+id/tv_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4.5"
                 android:paddingTop="10dp" />
         </LinearLayout>
         <LinearLayout

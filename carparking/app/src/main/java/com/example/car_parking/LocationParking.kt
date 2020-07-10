@@ -270,8 +270,9 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
     }
 
     override fun onMarkerClick(mMarker: Marker?): Boolean {
-//        childFragmentManager.beginTransaction().add(R.id.bottom_sheet, PopupParking() as Fragment).commit()
-//        mMap.setOnMapClickListener(this)
+        childFragmentManager.beginTransaction().add(R.id.bottom_sheet, PopupParking() as Fragment).commit()
+        mMap.setOnMapClickListener(this)
+
 //        val polyline1 = mMap.addPolyline(PolylineOptions()
 //            .clickable(true)
 //            .add(
@@ -279,6 +280,7 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
 //                LatLng(10.7628339,106.6802727)))
 //        // Store a data object with the polyline, used here to indicate an arbitrary type.
 //        polyline1.tag = "A"
+
 
         // booking parking slot
         val id = mMarker?.tag
