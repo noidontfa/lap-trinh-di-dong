@@ -38,7 +38,7 @@ class MapsActivity : AppCompatActivity(){
 
 
     lateinit var locationParking: LocationParking
-    lateinit var parking: Parking
+    lateinit var parkingList: ParkingList
 //    lateinit var account: Account
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,11 +67,11 @@ class MapsActivity : AppCompatActivity(){
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
-                R.id.Parking -> {
-                    parking = Parking()
+                R.id.ParkingList -> {
+                    parkingList = ParkingList()
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.fragmentContainer, parking)
+                        .replace(R.id.fragmentContainer, parkingList)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }

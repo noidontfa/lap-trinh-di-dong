@@ -7,9 +7,9 @@
         android:title="Location Parking"/>
 
     <item
-        android:id="@+id/Parking"
+        android:id="@+id/ParkingList"
         android:icon="@drawable/garage_80"
-        android:title="Parking"/>
+        android:title="ParkingList"/>
 
     <item
         android:id="@+id/Account"
