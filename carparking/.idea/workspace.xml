@@ -11,16 +11,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7d34b58-068f-47cc-8915-a83367257a1e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/bloodshot.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../week4/app/src/main/java/com/example/week4/MyApplication.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/render.experimental.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/car_parking/ParkingList.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_car_24dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_parking_list.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/parking_layout_item.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Seminar/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Seminar/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/google-services.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/car_parking/LocationParking.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/car_parking/LocationParking.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/car_parking/Parking.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/car_parking/Parking.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/car_parking/models/RoomModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/car_parking/models/RoomModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_parking.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_parking.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../week4/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../week4/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../week4/app/src/main/java/com/example/week4/MovieAPI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../week4/app/src/main/java/com/example/week4/MovieAPI.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../week4/app/src/main/java/com/example/week4/MyApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../week4/app/src/main/java/com/example/week4/MyApplication.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../week4/app/src/main/java/com/example/week4/TopRatingFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../week4/app/src/main/java/com/example/week4/TopRatingFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../week4/app/src/main/res/layout/fragment_top_rating.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../week4/app/src/main/res/layout/fragment_top_rating.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../week4/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../week4/build.gradle" afterDir="false" />
@@ -55,9 +64,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin File" />
         <option value="resourceFile" />
         <option value="layoutResourceFile_vertical" />
+        <option value="Kotlin File" />
         <option value="layoutResourceFile" />
       </list>
     </option>
@@ -74,7 +83,7 @@
     <property name="ToolWindowStructure.ShowToolbar" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable-v24" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../week4" />
+    <property name="last_opened_file_path" value="D:/Project_Android/Tutorial/Bai1" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RecentsManager">
