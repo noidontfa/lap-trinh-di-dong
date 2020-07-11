@@ -16,6 +16,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -48,6 +49,7 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
     private val database = Firebase.database
 
     private var cameraPosition: CameraPosition? = null
+    lateinit var btnInfoMarker: Button
 
     // The entry point to the Places API.
     private lateinit var placesClient: PlacesClient
@@ -91,7 +93,7 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
-
+        btnInfoMarker = view.findViewById(R.id.btnInfo)
         return view
     }
 
@@ -285,12 +287,48 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
 
         // booking parking slot
         val id = mMarker?.tag
+
+
         // Toast.makeText(activity, "$id", Toast.LENGTH_SHORT).show()
         // code Popup cua Tam
        // var park = PopupParking()
-        var park = Parking()
+//        var park = Parking()
+//        val bundle = Bundle()
+//        var Idlist = arrayListOf<Int>()
+//        database.reference.child("marker")
+//            .addValueEventListener(object : ValueEventListener{
+//                override fun onCancelled(error: DatabaseError) {
+//                    TODO("Not yet implemented")
+//                }
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//
+//
+//                    //  Toast.makeText(activity, snapshot.child("address").getValue().toString(), Toast.LENGTH_SHORT).show()
+//                    for(snap in snapshot.children) {
+//                        if(snap.child("roomId").getValue().toString() == id)
+//                        {
+//
+//                            bundle.putString("address", snap.child("address").getValue().toString())
+//                            bundle.putString("hour", snap.child("hour").getValue().toString())
+//                            bundle.putString("title", snap.child("title").getValue().toString())
+//                            bundle.putString("roomId", id.toString())
+//                            bundle.putString("rating", snap.child("rating").getValue().toString())
+//                            bundle.putString("slot", snap.child("SlotAvailable").getValue().toString())
+//                            break
+//                        }
+//                    }
+//                    park.arguments = bundle
+//                    fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, park)?.commit()
+                    // code popup cua Tam
+                   // fragmentManager?.beginTransaction()?.add(R.id.fragmentContainer, park)?.addToBackStack(null)?.commit()
+                    //childFragmentManager.beginTransaction().add(R.id.bottom_sheet, park).commit()
+//
+//                }
+//
+//            })
+        //Popup
+        var popup = PopupParking()
         val bundle = Bundle()
-        var Idlist = arrayListOf<Int>()
         database.reference.child("marker")
             .addValueEventListener(object : ValueEventListener{
                 override fun onCancelled(error: DatabaseError) {
@@ -309,19 +347,58 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
                             bundle.putString("title", snap.child("title").getValue().toString())
                             bundle.putString("roomId", id.toString())
                             bundle.putString("rating", snap.child("rating").getValue().toString())
-                            bundle.putString("slot", snap.child("SlotAvailable").getValue().toString())
                             break
                         }
                     }
-                    park.arguments = bundle
-                    fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, park)?.commit()
-                    // code popup cua Tam
-                   // fragmentManager?.beginTransaction()?.add(R.id.fragmentContainer, park)?.addToBackStack(null)?.commit()
-                    //childFragmentManager.beginTransaction().add(R.id.bottom_sheet, park).commit()
+                    popup.arguments = bundle
+                    fragmentManager?.beginTransaction()?.add(R.id.fragmentContainer, popup)?.addToBackStack(null)?.commit()
 
                 }
-
             })
+
+        //detail parking
+        btnInfoMarker.setOnClickListener {
+            var park = Parking()
+            val bundlepark = Bundle()
+            Toast.makeText(activity, "okok", Toast.LENGTH_SHORT).show()
+            var Idlist = arrayListOf<Int>()
+            database.reference.child("marker")
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+
+                        //  Toast.makeText(activity, snapshot.child("address").getValue().toString(), Toast.LENGTH_SHORT).show()
+                        for (snap in snapshot.children) {
+                            if (snap.child("roomId").getValue().toString() == id) {
+
+                                bundlepark.putString(
+                                    "address",
+                                    snap.child("address").getValue().toString()
+                                )
+                                bundlepark.putString(
+                                    "hour",
+                                    snap.child("hour").getValue().toString()
+                                )
+                                bundlepark.putString("roomId", id)
+                                bundlepark.putString(
+                                    "slot",
+                                    snap.child("SlotAvailable").getValue().toString()
+                                )
+                                break
+                            }
+                        }
+
+                        park.arguments = bundlepark
+                        fragmentManager!!.beginTransaction().replace(R.id.fragmentContainer, park)
+                            .commit()
+                    }
+
+                })
+        }
         mMap.setOnMapClickListener(this)
         return false
     }
