@@ -1,6 +1,7 @@
 package com.example.car_parking.models
 
-data class SlotModel(var ParkingFee : String, var LicensePlate: String, var ParkingTime: String, var isEmpty: Boolean, var roomId : String)
+data class SlotModel(var parkingFee : String, var licensePlate: String, var parkingTime: String,
+                     var empty: Boolean, var roomId : String, var slotId : String)
 {
-    constructor() : this("","", "", false, "")
+    constructor() : this("","", "", false, "", "")
 }
