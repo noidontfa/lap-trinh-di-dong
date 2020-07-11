@@ -1,12 +1,14 @@
 package com.example.car_parking
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.car_parking.models.RoomModel
+import com.example.car_parking.models.SlotModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -77,12 +79,15 @@ class  Parking : Fragment() {
         var parkingFee = valueTime.text
         var parkingTime = totalPay.text
 
+        val slot = SlotModel(parkingFee as String, licensePlate , parkingTime as String)
+
         // Xử lý khi user nhấn nút Đăng kí đỗ xe
         button.setOnClickListener() {
-            var SlotId = editTextID.toString()
+            var SlotId = editTextID.text.toString()
             Toast.makeText(activity, SlotId, Toast.LENGTH_SHORT).show()
             // database.reference.child("rooms").orderByChild("roomId").equalTo(roomId.toString())
-            database.reference.child("rooms").orderByChild("roomId").equalTo(roomId.toString())
+
+            database.getReference("rooms").orderByChild("roomId").equalTo(roomId.toString())
                 .addValueEventListener(object : ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {
                         TODO("Not yet implemented")
@@ -91,7 +96,8 @@ class  Parking : Fragment() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         for (snap in snapshot.child("Slot").children) {
                             if (snap.child("Id").getValue().toString() == SlotId) {
-                                //  database.reference.child("rooms").child("Slot").child("Slot${SlotId}").setValue()
+                                  database.reference.child("rooms").child("Slot")
+                                      .child("Slot${SlotId}").setValue(slot)
                             }
                         }
                     }
