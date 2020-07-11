@@ -281,40 +281,40 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
 //        // Store a data object with the polyline, used here to indicate an arbitrary type.
 //        polyline1.tag = "A"
 
-
-        // booking parking slot
-        val id = mMarker?.tag
-        // Toast.makeText(activity, "$id", Toast.LENGTH_SHORT).show()
-
-        var park = Parking()
-        val bundle = Bundle()
-        var Idlist = arrayListOf<Int>()
-        database.reference.child("marker")
-            .addValueEventListener(object : ValueEventListener{
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-                override fun onDataChange(snapshot: DataSnapshot) {
-
-
-                    //  Toast.makeText(activity, snapshot.child("address").getValue().toString(), Toast.LENGTH_SHORT).show()
-                    for(snap in snapshot.children) {
-                        if(snap.child("roomId").getValue().toString() == id)
-                        {
-
-                            bundle.putString("address", snap.child("address").getValue().toString())
-                            bundle.putString("hour", snap.child("hour").getValue().toString())
-                            bundle.putString("roomId", id)
-                            bundle.putString("slot", snap.child("SlotAvailable").getValue().toString())
-                            break
-                        }
-                    }
-
-                    park.arguments = bundle
-                    fragmentManager!!.beginTransaction().replace(R.id.fragmentContainer, park).commit()
-                }
-
-            })
+//
+//        // booking parking slot
+//        val id = mMarker?.tag
+//        // Toast.makeText(activity, "$id", Toast.LENGTH_SHORT).show()
+//
+//        var park = Parking()
+//        val bundle = Bundle()
+//        var Idlist = arrayListOf<Int>()
+//        database.reference.child("marker")
+//            .addValueEventListener(object : ValueEventListener{
+//                override fun onCancelled(error: DatabaseError) {
+//                    TODO("Not yet implemented")
+//                }
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//
+//
+//                    //  Toast.makeText(activity, snapshot.child("address").getValue().toString(), Toast.LENGTH_SHORT).show()
+//                    for(snap in snapshot.children) {
+//                        if(snap.child("roomId").getValue().toString() == id)
+//                        {
+//
+//                            bundle.putString("address", snap.child("address").getValue().toString())
+//                            bundle.putString("hour", snap.child("hour").getValue().toString())
+//                            bundle.putString("roomId", id)
+//                            bundle.putString("slot", snap.child("SlotAvailable").getValue().toString())
+//                            break
+//                        }
+//                    }
+//.
+//                    park.arguments = bundle
+//                    fragmentManager!!.beginTransaction().replace(R.id.fragmentContainer, park).commit()
+//                }
+//
+//            })
 
         return false
     }

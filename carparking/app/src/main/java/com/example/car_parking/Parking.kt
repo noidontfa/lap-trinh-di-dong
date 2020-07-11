@@ -49,9 +49,37 @@ class  Parking : Fragment() {
         //Toast.makeText(activity, arguments!!.getString("roomId"), Toast.LENGTH_SHORT).show()
         val roomId = arguments!!.getString("roomId")
         button = view.findViewById(R.id.button) as Button
-        var editText = view.findViewById(R.id.editText2) as EditText
+        var editTextID = view.findViewById(R.id.editText2) as EditText
+
+        slider = view.findViewById(R.id.seekBar) as SeekBar
+        valueTime = view.findViewById(R.id.textView16) as TextView
+        totalPay = view.findViewById(R.id.textView15) as TextView
+
+        slider.max = 10
+
+        slider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                valueTime.text = progress.toString()
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                valueTime.text = seekBar?.progress.toString()
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                valueTime.text = seekBar?.progress.toString() + " giờ"
+                totalPay.text = (seekBar!!.progress*10000.toInt()).toString() + "đ"
+            }
+        })
+
+        var editTextLicensePlate = view.findViewById(R.id.editText) as EditText
+        var licensePlate = editTextLicensePlate.text.toString().trim()
+        var parkingFee = valueTime.text
+        var parkingTime = totalPay.text
+
+        // Xử lý khi user nhấn nút Đăng kí đỗ xe
         button.setOnClickListener() {
-            var SlotId = editText.toString()
+            var SlotId = editTextID.toString()
             Toast.makeText(activity, SlotId, Toast.LENGTH_SHORT).show()
             // database.reference.child("rooms").orderByChild("roomId").equalTo(roomId.toString())
             database.reference.child("rooms").orderByChild("roomId").equalTo(roomId.toString())
@@ -80,26 +108,6 @@ class  Parking : Fragment() {
             }
         }
 
-        slider = view.findViewById(R.id.seekBar) as SeekBar
-        valueTime = view.findViewById(R.id.textView16) as TextView
-        totalPay = view.findViewById(R.id.textView15) as TextView
-
-        slider.max = 10
-
-        slider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                valueTime.text = progress.toString()
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                valueTime.text = seekBar?.progress.toString()
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                valueTime.text = seekBar?.progress.toString() + " giờ"
-                totalPay.text = (seekBar!!.progress*10000.toInt()).toString() + "đ"
-            }
-        })
     }
 
 }
