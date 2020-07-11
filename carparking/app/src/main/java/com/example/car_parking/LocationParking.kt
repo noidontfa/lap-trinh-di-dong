@@ -286,8 +286,9 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
         // booking parking slot
         val id = mMarker?.tag
         // Toast.makeText(activity, "$id", Toast.LENGTH_SHORT).show()
-
-        var park = PopupParking()
+        // code Popup cua Tam
+       // var park = PopupParking()
+        var park = Parking()
         val bundle = Bundle()
         var Idlist = arrayListOf<Int>()
         database.reference.child("marker")
@@ -308,12 +309,14 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
                             bundle.putString("title", snap.child("title").getValue().toString())
                             bundle.putString("roomId", id.toString())
                             bundle.putString("rating", snap.child("rating").getValue().toString())
+                            bundle.putString("slot", snap.child("SlotAvailable").getValue().toString())
                             break
                         }
                     }
                     park.arguments = bundle
-                    //fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, park)?.commit()
-                    fragmentManager?.beginTransaction()?.add(R.id.fragmentContainer, park)?.addToBackStack(null)?.commit()
+                    fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, park)?.commit()
+                    // code popup cua Tam
+                   // fragmentManager?.beginTransaction()?.add(R.id.fragmentContainer, park)?.addToBackStack(null)?.commit()
                     //childFragmentManager.beginTransaction().add(R.id.bottom_sheet, park).commit()
 
                 }
