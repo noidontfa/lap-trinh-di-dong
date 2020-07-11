@@ -1,6 +1,7 @@
 package com.example.car_parking
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,6 +49,7 @@ class  Parking : Fragment() {
         textView7.text = arguments!!.getString("slot")
         //Toast.makeText(activity, arguments!!.getString("roomId"), Toast.LENGTH_SHORT).show()
         val roomId = arguments!!.getString("roomId")
+        Log.e(TAG, roomId)
         button = view.findViewById(R.id.button) as Button
         var editText = view.findViewById(R.id.editText2) as EditText
         button.setOnClickListener() {

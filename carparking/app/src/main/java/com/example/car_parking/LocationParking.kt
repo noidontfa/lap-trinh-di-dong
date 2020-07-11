@@ -5,6 +5,7 @@ import android.Manifest
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -270,7 +271,7 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
     }
 
     override fun onMarkerClick(mMarker: Marker?): Boolean {
-        childFragmentManager.beginTransaction().add(R.id.bottom_sheet, PopupParking() as Fragment).commit()
+        //childFragmentManager.beginTransaction().add(R.id.bottom_sheet, PopupParking() as Fragment).commit()
         mMap.setOnMapClickListener(this)
 
 //        val polyline1 = mMap.addPolyline(PolylineOptions()
@@ -286,7 +287,7 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
         val id = mMarker?.tag
         // Toast.makeText(activity, "$id", Toast.LENGTH_SHORT).show()
 
-        var park = Parking()
+        var park = PopupParking()
         val bundle = Bundle()
         var Idlist = arrayListOf<Int>()
         database.reference.child("marker")
@@ -304,18 +305,21 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
 
                             bundle.putString("address", snap.child("address").getValue().toString())
                             bundle.putString("hour", snap.child("hour").getValue().toString())
-                            bundle.putString("roomId", id)
-                            bundle.putString("slot", snap.child("SlotAvailable").getValue().toString())
+                            bundle.putString("title", snap.child("title").getValue().toString())
+                            bundle.putString("roomId", id.toString())
+                            bundle.putString("rating", snap.child("rating").getValue().toString())
                             break
                         }
                     }
-
                     park.arguments = bundle
-                    fragmentManager!!.beginTransaction().replace(R.id.fragmentContainer, park).commit()
+                    //fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, park)?.commit()
+                    fragmentManager?.beginTransaction()?.add(R.id.fragmentContainer, park)?.addToBackStack(null)?.commit()
+                    //childFragmentManager.beginTransaction().add(R.id.bottom_sheet, park).commit()
+
                 }
 
             })
-
+        mMap.setOnMapClickListener(this)
         return false
     }
 
@@ -330,10 +334,10 @@ class LocationParking : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickL
     }
 
     override fun onMapClick(p0: LatLng?) {
-        childFragmentManager.findFragmentById(R.id.bottom_sheet)?.let {
-            childFragmentManager?.beginTransaction().remove(
+        fragmentManager?.findFragmentById(R.id.fragmentContainer)?.let {
+            fragmentManager?.beginTransaction()?.remove(
                 it
-            ).commit()
+            )?.commit()
         }
     }
 }

@@ -10,12 +10,14 @@ import androidx.fragment.app.Fragment
 import com.example.car_parking.models.MarkerModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.fragment_popup_info.*
 
-val TAG = "MapsActivity"
-private val database = Firebase.database
+val TAG = "Mln"
+private val database = FirebaseDatabase.getInstance()
 
 class PopupParking : Fragment() {
     override fun onCreateView(
@@ -29,19 +31,24 @@ class PopupParking : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //tv_title.text = arguments!!.getString("title")
         val tvTitle: TextView = view.findViewById(R.id.tv_title)
         val tvAddr: TextView = view.findViewById(R.id.tv_addr)
         val tvHour: TextView = view.findViewById(R.id.tv_hour)
         val tvRating: TextView = view.findViewById(R.id.tv_rating)
         val markerRef = database.getReference("marker")
-        markerRef.addValueEventListener(object : ValueEventListener {
+        val room = arguments?.getString("roomId")
+        Log.e(TAG, room)
+        markerRef.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Get Post object and use the values to update the UI
                 for (snap in dataSnapshot.children) {
                     val marker = snap.getValue(MarkerModel::class.java)
-                    tvTitle.setText(marker!!.title)
-                    tvAddr.setText(marker!!.address)
-                    tvHour.setText(marker!!.hour)
-                    tvRating.setText(marker!!.rating.toString())
+                    Log.e(TAG, marker!!.hour)
+                    tvTitle.text = arguments!!.getString("title")
+                    tvAddr.text = arguments!!.getString("address")
+                    tvHour.text = arguments!!.getString("hour")
+                    tvRating.text = arguments!!.getString("rating")
                 }
             }
 
@@ -51,6 +58,48 @@ class PopupParking : Fragment() {
                 // ...
             }
         })
-    }
+//        database.reference.child("rooms").orderByChild("roomId").equalTo(roomId.toString())
+//            .addValueEventListener(object : ValueEventListener {
+//                override fun onCancelled(error: DatabaseError) {
+//                    TODO("Not yet implemented")
+//                }
+//
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    for (snap in snapshot.child("Slot").children) {
+//                        if (snap.child("Id").getValue().toString() == SlotId) {
+//                            //  database.reference.child("rooms").child("Slot").child("Slot${SlotId}").setValue()
+//                        }
+//                    }
+//                }
+//            })
+//        database.reference.child("rooms").orderByChild("roomId").equalTo(roomId.toString())
+//            .addValueEventListener(object : ValueEventListener {
+////        markerRef.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                for(snap in dataSnapshot.children) {
+//                    val marker = snap.getValue(MarkerModel::class.java)
+//                    if(snap.child("roomId").getValue().toString() == roomId)
+//                    {
+////                        tvTitle.text = arguments!!.getString("title")
+////                        tvAddr.text = arguments!!.getString("address")
+////                        tvHour.text = arguments!!.getString("hour")
+////                        tvRating.text = arguments!!.getString("rating")
+//                        tvTitle.setText(marker!!.title)
+//                        tvAddr.setText(marker!!.address)
+//                        tvHour.setText(marker!!.hour)
+//                        tvRating.setText(marker!!.rating.toString())
+//
+//                    }
+//                }
+//            }
+//
+//
+//            override fun onCancelled(databaseError: DatabaseError) {
+//                // Getting Post failed, log a message
+//                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+//                // ...
+//            }
+//        })
 
+    }
 }
