@@ -42,7 +42,7 @@ class  Parking : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val TAG = "AAA"
-        var Slot = RoomModel()
+       // var Slot = RoomModel()
         //textView2.text = arguments!!.getString("address")
         // Toast.makeText(activity, arguments!!.getString("address"), Toast.LENGTH_SHORT).show()
         txtAddress.text = arguments!!.getString("address")
@@ -80,31 +80,43 @@ class  Parking : Fragment() {
         var parkingFee = valueTime.text
         var parkingTime = totalPay.text
 
-        val slot = SlotModel(parkingFee as String, licensePlate , parkingTime as String)
+        //val slot = SlotModel(parkingFee.toString(), licensePlate.toString() , parkingTime.toString(), false, roomId.toString())
+     //   val slot = SlotModel(totalPay.text.toString(),editTextLicensePlate.text.toString(),valueTime.text.toString(),true,roomId.toString(),S)
+//        slot.roomId = roomId.toString()
+//        slot.licensePlate = editTextLicensePlate.text.toString()
+//        slot.parkingFee = totalPay.text.toString()
+//        slot.parkingTime = valueTime.text.toString()
+//        slot.empty = true
+//        slot.slotId = 7
 
         // Xử lý khi user nhấn nút Đăng kí đỗ xe
         button.setOnClickListener() {
             var SlotId = editTextID.text.toString()
-            Toast.makeText(activity, SlotId, Toast.LENGTH_SHORT).show()
-            // database.reference.child("rooms").orderByChild("roomId").equalTo(roomId.toString())
+            //Toast.makeText(activity, SlotId, Toast.LENGTH_SHORT).show()
+            val slot = SlotModel(totalPay.text.toString(),editTextLicensePlate.text.toString(),valueTime.text.toString(),true,roomId.toString(),SlotId)
+            database.reference.child("Slot").child("Slot" +"${SlotId}").setValue(slot)
+//            database.reference.child("Slot").child("Slot1").child("roomId").setValue(slot.roomId)
+//            database.reference.child("Slot").child("Slot1").child("licensePlate").setValue(licensePlate)
 
-            database.getReference("rooms").orderByChild("roomId").equalTo(roomId.toString())
-                .addValueEventListener(object : ValueEventListener {
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
-                    }
 
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        for (snap in snapshot.child("Slot").children) {
-                            if (snap.child("Id").getValue().toString() == SlotId) {
-                                  database.reference.child("rooms").child("Slot")
-                                      .child("Slot${SlotId}").setValue(slot)
-                            }
-                        }
-                    }
-                })
 
-            // Giảm số slot mỗi khi user đăng kí đỗ xe trong bãi
+//            database.getReference("rooms").orderByChild("roomId").equalTo(roomId.toString())
+//                .addValueEventListener(object : ValueEventListener {
+//                    override fun onCancelled(error: DatabaseError) {
+//                        TODO("Not yet implemented")
+//                    }
+//
+//                    override fun onDataChange(snapshot: DataSnapshot) {
+//                        for (snap in snapshot.child("Slot").children) {
+//                            if (snap.child("Id").getValue().toString() == SlotId) {
+//                                  database.reference.child("rooms").child("Slot")
+//                                      .child("Slot${SlotId}").setValue(slot)
+//                            }
+//                        }
+//                    }
+//                })
+
+         //    Giảm số slot mỗi khi user đăng kí đỗ xe trong bãi
             var amountSlot = (textView7.text as String?)?.toInt()?.minus(1)
             if (amountSlot != null) {
                 if(amountSlot < 0) {
