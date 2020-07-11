@@ -6,14 +6,13 @@ data class RoomModel(var roomId : String, var name : String) {
     var timeCheckOut : Int
     var isEmpty : Boolean
     var Id : Int
-    var ParkingFee : Long
+    var Slot = ArrayList<SlotModel>()
 
     init{
         timeCheckIn = 0
         timeCheckOut = 0
         isEmpty = false
         Id = -1
-        ParkingFee = 0
     }
     constructor() : this("", "")
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.car_parking.models.RoomModel
+import com.example.car_parking.models.SlotModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -51,36 +52,7 @@ class  Parking : Fragment() {
         val roomId = arguments!!.getString("roomId")
         Log.e(TAG, roomId)
         button = view.findViewById(R.id.button) as Button
-        var editText = view.findViewById(R.id.editText2) as EditText
-        button.setOnClickListener() {
-            var SlotId = editText.toString()
-            Toast.makeText(activity, SlotId, Toast.LENGTH_SHORT).show()
-            // database.reference.child("rooms").orderByChild("roomId").equalTo(roomId.toString())
-            database.reference.child("rooms").orderByChild("roomId").equalTo(roomId.toString())
-                .addValueEventListener(object : ValueEventListener {
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
-                    }
-
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        for (snap in snapshot.child("Slot").children) {
-                            if (snap.child("Id").getValue().toString() == SlotId) {
-                                //  database.reference.child("rooms").child("Slot").child("Slot${SlotId}").setValue()
-                            }
-                        }
-                    }
-                })
-
-            // Giảm số slot mỗi khi user đăng kí đỗ xe trong bãi
-            var amountSlot = (textView7.text as String?)?.toInt()?.minus(1)
-            if (amountSlot != null) {
-                if(amountSlot < 0) {
-                    Toast.makeText(activity, "Slot of parking is full!!!", Toast.LENGTH_SHORT).show()
-                } else {
-                    textView7.text = amountSlot.toString()
-                }
-            }
-        }
+        var editTextID = view.findViewById(R.id.editText2) as EditText
 
         slider = view.findViewById(R.id.seekBar) as SeekBar
         valueTime = view.findViewById(R.id.textView16) as TextView
@@ -102,6 +74,47 @@ class  Parking : Fragment() {
                 totalPay.text = (seekBar!!.progress*10000.toInt()).toString() + "đ"
             }
         })
+
+        var editTextLicensePlate = view.findViewById(R.id.editText) as EditText
+        var licensePlate = editTextLicensePlate.text.toString().trim()
+        var parkingFee = valueTime.text
+        var parkingTime = totalPay.text
+
+        val slot = SlotModel(parkingFee as String, licensePlate , parkingTime as String)
+
+        // Xử lý khi user nhấn nút Đăng kí đỗ xe
+        button.setOnClickListener() {
+            var SlotId = editTextID.text.toString()
+            Toast.makeText(activity, SlotId, Toast.LENGTH_SHORT).show()
+            // database.reference.child("rooms").orderByChild("roomId").equalTo(roomId.toString())
+
+            database.getReference("rooms").orderByChild("roomId").equalTo(roomId.toString())
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for (snap in snapshot.child("Slot").children) {
+                            if (snap.child("Id").getValue().toString() == SlotId) {
+                                  database.reference.child("rooms").child("Slot")
+                                      .child("Slot${SlotId}").setValue(slot)
+                            }
+                        }
+                    }
+                })
+
+            // Giảm số slot mỗi khi user đăng kí đỗ xe trong bãi
+            var amountSlot = (textView7.text as String?)?.toInt()?.minus(1)
+            if (amountSlot != null) {
+                if(amountSlot < 0) {
+                    Toast.makeText(activity, "Slot of parking is full!!!", Toast.LENGTH_SHORT).show()
+                } else {
+                    textView7.text = amountSlot.toString()
+                }
+            }
+        }
+
     }
 
 }
